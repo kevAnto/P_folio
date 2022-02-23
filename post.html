@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from kevportfolio.s3.amazonaws.com/post.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Sep 2021 11:26:53 GMT -->
+<head>
+	<title>Antoine Choula</title>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="default.css">
+
+
+	<style type="text/css">
+		.img-container{
+			max-width: 600px;
+		}
+
+		img{
+			width: 100%
+		}
+
+	</style>
+
+</head>
+<body>
+	<div class="nav-wrapper">
+
+		<!-- Link around dots-wrapper added after tutorial video -->
+		<a href="index.html">
+			<div class="dots-wrapper">
+				<div id="dot-1" class="browser-dot"></div>
+				<div id="dot-2" class="browser-dot"></div>
+				<div id="dot-3" class="browser-dot"></div>
+			</div>
+		</a>
+
+		<ul id="navigation">
+			<li><a href="index.html">About</a></li>
+			<li><a href="blog.html">Blog</a></li>
+			<li><a href="index.html#contact">Contact</a></li>
+
+		</ul>
+	</div>
+
+	<div class="main-container">
+		<br>
+
+		<div class="img-container">
+			<img src="images/dash.jpg">
+		</div>
+		
+		<h3>Using Lambda & CloudWatch Events to start and stop Ec2 Instances</h3>
+		
+		<h4>Use case:</h4>
+
+		<p>You are the admin over a large number of Ec2 instances that need to be stopped at night when they are not in use by your development team to save on costs.
+		<br>
+		<br>
+		Your development team does not have a good habit of stopping them before they leave for work so it is your job to create an automated trigger in the AWS console to automatically conduct the action every night and/or start them every morning before the team comes in.
+		<br>
+		
+		<h5>What Are Amazon CloudWatch Events?</h5>
+		<p>
+		<br>
+		Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. Using simple rules that you can quickly set up, you can match events and route them to one or more target functions or streams. CloudWatch Events becomes aware of operational changes as they occur. CloudWatch Events responds to these operational changes and takes corrective action as necessary, by sending messages to respond to the environment, activating functions, making changes, and capturing state information.
+		<br>
+		
+		<br>
+		You can also use CloudWatch Events to schedule automated actions that self-trigger at certain times using cron or rate expressions.
+		<br>
+		
+		
+		<h5>What is AWS Lambda?</h5>
+		<p>
+		<br>
+		WS Lambda is a compute service that lets you run code without provisioning or managing servers. AWS Lambda runs your code only when needed and scales automatically, from a few requests per day to thousands per second. You pay only for the compute time you consume — there is no charge when your code is not running. With AWS Lambda, you can run code for virtually any type of application or backend service — all with zero administration. AWS Lambda runs your code on a high-availability compute infrastructure and performs all of the administration of the compute resources, including server and operating system maintenance, capacity provisioning and automatic scaling, code monitoring, and logging. All you need to do is supply your code in one of the languages that AWS Lambda supports.
+		<br>
+		You can use AWS Lambda to run your code in response to events, such as changes to data in an Amazon S3 bucket or an Amazon DynamoDB table; to run your code in response to HTTP requests using Amazon API Gateway, or invoke your code using API calls made using AWS SDKs. With these capabilities, you can use Lambda to easily build data processing triggers for AWS services like Amazon S3 and Amazon DynamoDB, process streaming data stored in Kinesis, or create your own back end that operates at AWS scale, performance, and security.
+		<br>
+		<br>
+		You can also build serverless applications composed of functions that are triggered by events and automatically deploy them using CodePipeline and CodeBuild. For more information, see AWS Lambda applications. Let’s get started.
+		<br>
+		Log in to the AWS Console under an account with the necessary permissions. I am using one with admin privileges but not my root account.
+		<br>
+		Navigate to the IAM service and create a policy that we will attach to the Lamba service allowing it to do certain actions with certain resources (not a full access policy)
+		<br>
+		
+		<br>
+		</p>
+		
+		<div class="img-container">
+			<img src="images/11.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Enter in the below code in the JSON tab removing the existing default code. Then click next.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/16.jpg">
+		</div>
+		<br>
+		<p>
+		Attache your instance and the region in which it is to the policy.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/15.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Then, create a role.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/21.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Attache the policy we've created to our role.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/22.jpg">
+		</div>
+		<br>
+		
+		<p>
+		Let’s not forget to create our Ec2 Instances 😂 so that we can insert the instance id into our lambda code before creating our Lambda functions. Navigate to the Ec2 service.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/1.jpg">
+		</div>
+		
+		<br>
+		
+		<br>
+		
+		<div class="img-container">
+			<img src="images/2.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		Instance available let move to the next step.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/3.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		Now we will create a Lambda Function that will invoke when we want to stop our instances to either stop or start. We will create two separate functions, one stopping and one starting the instances.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/31.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Let replace the python code by our personnalise code and add our EC2 id.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/32.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		Next, navigate to the CloudWatch service and go to events. Here we will create an event cron expression and add a custom rule to start our instances at a certain time. We will then do another one to stop it 10 minutes later.
+		<br>
+		<br>
+		
+		<div class="img-container">
+			<img src="images/43.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Let’s check the final step to see if both of our instances have been stopped.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/44.jpg">
+		</div>
+		<br>
+		<p>
+		It worked 😬
+		<br>
+		Unless you are using this in a production environment, I would suggest that you terminate your ec2 instances, the lambda functions, IAM roles, and the CloudWatch event rules.
+		<br>
+		
+
+	</div>
+
+</body>
+
+<!-- Mirrored from kevportfolio.s3.amazonaws.com/post.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Sep 2021 11:27:13 GMT -->
+</html>

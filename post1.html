@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from kevportfolio.s3.amazonaws.com/post1.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Sep 2021 11:27:13 GMT -->
+<head>
+	<title>Antoine Choula</title>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="default.css">
+
+
+	<style type="text/css">
+		.img-container{
+			max-width: 600px;
+		}
+
+		img{
+			width: 100%
+		}
+
+	</style>
+
+</head>
+<body>
+	<div class="nav-wrapper">
+
+		<!-- Link around dots-wrapper added after tutorial video -->
+		<a href="index.html">
+			<div class="dots-wrapper">
+				<div id="dot-1" class="browser-dot"></div>
+				<div id="dot-2" class="browser-dot"></div>
+				<div id="dot-3" class="browser-dot"></div>
+			</div>
+		</a>
+
+		<ul id="navigation">
+			<li><a href="index.html">About</a></li>
+			<li><a href="blog.html">Blog</a></li>
+			<li><a href="index.html#contact">Contact</a></li>
+
+		</ul>
+	</div>
+
+	<div class="main-container">
+		<br>
+
+		<div class="img-container">
+			<img src="images/iam.jpg">
+		</div>
+		
+		<h3>Cost and Governance Usage: Intermediate Level</h3>
+		
+		<h4>Goals: Implement IAM Policies to control usage</h4>
+
+		<p>Intro Steps: Sign in to the management console under your root account. Once you are in the console navigate to the IAM services from the search bar or drop-down menu.
+		<br>
+		<br>
+		Step 1: From the IAM dashboard go to Groups on the left-hand side and create a group named “CostTest”, then hit NEXT step, then hit “create group”
+		<br>
+			
+		<br>
+		</p>
+		
+		<div class="img-container">
+			<img src="images/a1.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Create a TestUser with AWS management access to console.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a2.jpg">
+		</div>
+		<br>
+		<p>
+		Step 2a: Add TestUser to the CostTest Group
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a3.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Step 3: Navigate back to the IAM dashboard and go to policies, create policy
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a4.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Step 4: Click on the JSON file and enter in your policy
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a5.jpg">
+		</div>
+		<br>
+		
+		<p>
+		Step 5: Review policy
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a6.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		Next: Enter policy name and description.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a7.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		Step 6: Now we will navigate back to the IAM dashboard and select the group CostTest. Under the group we will see TestUser, then click on the Permissions tab, attach policy, filter the results to customer-managed and select the *RegionRestrict* policy, and click attach.
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a8.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a9.jpg">
+		</div>
+		
+		<br>
+		<p>
+		let filter the results to customer-managed and select the *RegionRestrict* policy, and click attach. 
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a10.jpg">
+		</div>
+		
+		<br>
+		
+		<p>
+		Now we will verify if the policy is in effect
+		<br>
+		<br>
+		
+		<div class="img-container">
+			<img src="images/a11.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Switch Role to the TestUser by logging in as the test user. Change the region in the top right corner where you see N. Virginia or whatever region you are operating in and select US West (N. California).
+		<br>
+		<div class="img-container">
+			<img src="images/v1.jpg">
+		</div>
+		<br>
+		<p>
+		Navigate to the EC2 service and click on launch instance and you will notice you get an error
+		
+		<br>
+		
+			<br>
+		
+		<div class="img-container">
+			<img src="images/v3.jpg">
+		</div>
+		
+		<br>
+		<p>
+		WHY? The RegionRestrict policy that we attached limits us to only launching certain resources in the us-east-1 region. So now change the region back to us-east-1 and attempt to launch an EC2 instance and you will see that it will let you proceed as you are now in the proper region in which the permissions allow you to provision an ec2 instance.
+		
+		<br>
+			<br>
+		
+		<div class="img-container">
+			<img src="images/v4.jpg">
+		</div>
+		
+		
+		<p>
+		Next...
+		<br>
+			
+		
+		<div class="img-container">
+			<img src="images/v44.jpg">
+		</div>
+		
+		<br>
+		<p>
+		I chose a c5.large but you can choose the free tier eligible as we will be deleting this resource in a few steps. Click review and launch and notate the security group as we will need to delete it later. Proceed without using a keypair because we will not be using this ec2 but normally you would place whatever software you want to run on this instance. If you attached the wrong policy as I did and this does not work, log back into your root account and delete the RegionRestrict under policies in IAM and create a new policy with the correct details and attach to the CostTest group which will then attach it to the only user in the group
+		<br>
+			<br>
+		
+		<div class="img-container">
+			<img src="images/v5.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Select a key pair or create one and click on acknowlege
+		<br>
+			<br>
+		
+		<div class="img-container">
+			<img src="images/v6.jpg">
+		</div>
+		
+		<br>
+		<p>
+		Don't forget to stop your instance if you are not in production.
+		<br>
+			<br>
+		
+		<div class="img-container">
+			<img src="images/v7.jpg">
+		</div>
+		
+		<br>
+		<p>
+		<h3>
+		YOU HAVE NOW ATTACHED A REGION SPECIFIC POLICY TO AN IAM GROUP CONTAINING ONE USER
+		</h3>
+		<br>
+		
+
+	</div>
+
+</body>
+
+<!-- Mirrored from kevportfolio.s3.amazonaws.com/post1.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Sep 2021 11:28:10 GMT -->
+</html>
