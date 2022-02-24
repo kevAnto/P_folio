@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Antoine Choula</title>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&amp;display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="default.css">
+
+
+	<style type="text/css">
+		.img-container{
+			max-width: 600px;
+		}
+
+		img{
+			width: 100%
+		}
+
+	</style>
+
+</head>
+<body>
+	<div class="nav-wrapper">
+
+		<!-- Link around dots-wrapper added after tutorial video -->
+		<a href="index.html">
+			<div class="dots-wrapper">
+				<div id="dot-1" class="browser-dot"></div>
+				<div id="dot-2" class="browser-dot"></div>
+				<div id="dot-3" class="browser-dot"></div>
+			</div>
+		</a>
+
+		<ul id="navigation">
+			<li><a href="index.html">About</a></li>
+			<li><a href="blog.html">Blog</a></li>
+			<li><a href="index.html#contact">Contact</a></li>
+
+		</ul>
+	</div>
+
+	<div class="main-container">
+		<br>
+
+		<div class="img-container">
+			<img src="images/static.png">
+		</div>
+		
+		<h3>DevOps- Implementing CI-CD with AWS S3 static website</h3>
+		
+
+		<p> Requirements: <br><br>
+
+            Setup an Amazon CloudFront distribution with SSL, custom domain and S3 <br><br>
+        
+        
+            <li>Create an S3 bucket and set it up for static website hosting </li>
+            <li>Create a record set in Route 53 </li>
+            <li>Set up a CloudFront distribution and link it with a custom domain  </li>
+            <li>Secure the connection via SSL and AWS Certificate Manager </li>
+			<li>Create a Pipeline with CodeBuild</li>
+		<br>
+		<br>
+
+		<br>
+			Step1: Fork the repo and clone it in your local
+
+		<br>
+        You can use below command to clone the repo <a href="https://github.com/kevAnto/terraformec2/blob/main/ec2.tf">here:</a> <br><br>
+
+        Step2: Setting up Module folder
+
+    Create a new directory in our terraformec2 directory named ec2-instance.
+    In the ec2-instance directory create main.tf, outputs.tf, providers.tf, and variables.tf files.
+		</p>
+		
+		<div class="img-container">
+			<img src="images/tf1(1).PNG">
+		</div>
+		
+		<br>
+		<p>
+            3. The ec2.tf file currently has a provider section and a resource section. Both of which need to be moved to our new ec2-instance module. First let’s take the Provider information and cut and paste it to the providers.tf file.
+		<br>
+		<br>
+		    4. Take the aws_instance resource and cut and paste into the main.tf file.
+		<br>
+
+        <br>
+		
+            5. In root module i.e ec2.tf now would be empty and here we would add the following to the ec2.tf to reference our ec2-instance module.
+		
+		<br>
+
+        <p>
+            Step3: Run terraform commands
+            
+
+            <li>While in the terraformec2 directory run terraform init to initialize Terraform.</li>
+            <li>Run terraform fmt to format our code.</li>
+            <li>Run terraform validate to ensure we don’t have any syntax errors.</li>
+            <li>Run terraform plan to see what resources we will create.</li>
+            <li>Run terraform apply and type yes when prompted.</li>
+            
+		<br>
+		
+		<div class="img-container">
+			<img src="images/tf2(1).PNG">
+		</div>
+		
+		<br>
+		<p>
+		<br>
+		Open your AWS account to check your Instance
+		
+		<br>
+		
+		<div class="img-container">
+			<img src="images/running.PNG">
+		</div>
+		
+		<p>
+            <br>Step5: Destroy the resources <br> <br>Once you are done with creation of resources and you have verified it,
+		<br>
+		
+		<div class="img-container">
+			<img src="images/tf3(1).PNG">
+		</div>
+		
+		<br>
+		<p>
+            <p>
+             Next step is to destroy all the resources created in order to avoid any unnecessary charges from AWS. 
+            <br>
+		
+		<br>
+		
+		<div class="img-container">
+			<img src="images/tf4.PNG">
+		</div>
+		<p>
+           
+
+            <br>
+		
+		
+
+	</div>
+
+</body>
+
+</html>
